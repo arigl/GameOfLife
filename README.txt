@@ -26,5 +26,8 @@ Rand function
 Rounding
 - https://stackoverflow.com/questions/14369673/round-double-to-3-points-decimal
 
+Differentiation of Rand values
+- http://www.cplusplus.com/reference/cstdlib/srand/
+
 Classmate help:
 - Asked Matt on some different methods for handling probabilities
