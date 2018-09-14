@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include <algorithm>
+#include <time.h>
 #define _USE_MATH_DEFINES
 
 using namespace std;
@@ -20,7 +21,7 @@ double gaussianLength (double mean, double deviation){
     return distribution;
 }
 
-int main()
+int main(int argc, char** argv)
 {
   int cont = 1;
   int first = 0;
@@ -28,7 +29,8 @@ int main()
   {
     // VARIABLE DECLARATIONS
     ifstream inFile; // Taking in the File
-    ofstream myFile ("alexrigl.out"); // Outputting a file with strings
+  //  ofstream myFile ("alexrigl.out"); // Outputting a file with strings
+    ofstream myFile;
     // Relative distributions of nucleotides, and their bigrams
     double A = 0;
     double T = 0;
@@ -52,7 +54,7 @@ int main()
     double CG = 0;
     double random = 0; // definining two random variables
     double random2 = 0;
-
+    srand(time(NULL));
     int stringLength = 0; // the length of a specific string
     int totalLength = 0; // the added up lengths of the strings
     int stringCounter = 0; // the amount of strings aka the amount of lines
@@ -61,14 +63,21 @@ int main()
     double variance = 0; // variance
     double mean; // mean
     string fileName;
+    int newFile;
     // END OF VARIABLE DECLARATION
-
-    //cout << "Please enter the txt file you want to parse" << endl;
-    //cin >> fileName;
-    // inFile.open (fileName);
-    inFile.open("dnastrings.txt"); //opens a file in my directory
+    if (newFile == 1){
+      cout << "Please enter the txt file you want to parse" << endl;
+      cin >> fileName;
+      myFile.open("alexrigl.out", std::ios::app);
+    }
+    else{
+      fileName = argv[1];
+      myFile.open("alexrigl.out");
+    }
+    inFile.open (fileName);
+  //  inFile.open("dnastrings.txt"); //opens a file in my directory
     if (!inFile) {
-      cerr << "Unable to open file dnastrings.txt" << endl;;
+      cerr << "Unable to open file " << fileName << endl;;
       exit(1);
     }
 
@@ -84,24 +93,28 @@ int main()
             T++;
             i++; // adds more to the counter, since we used i + 1
             stringLength++; // counts the number of characters, which will be added onto later
+            continue;
           }
           if (line[i+1] == 'G'){
             AG++;
             G++;
             i++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'C'){
             AC++;
             C++;
             i++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'A'){
             AA++;
             A++;
             i++;
             stringLength++;
+            continue;
           }
         }
         // Does the same process for all of the nucleotides, and their bigrams
@@ -113,24 +126,28 @@ int main()
             i++;
             A++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'T'){
             TT++;
             i++;
             T++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'G'){
             TG++;
             i++;
             G++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'C'){
             TC++;
             i++;
             C++;
             stringLength++;
+            continue;
           }
         }
         if (line[i] == 'G'){
@@ -141,24 +158,28 @@ int main()
             i++;
             A++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'T'){
             GT++;
             i++;
             T++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'G'){
             GG++;
             i++;
             G++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'C'){
             GC++;
             i++;
             C++;
             stringLength++;
+            continue;
           }
         }
         if (line[i] == 'C'){
@@ -169,27 +190,32 @@ int main()
             i++;
             A++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'T'){
             CT++;
             i++;
             T++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'G'){
             CG++;
             i++;
             G++;
             stringLength++;
+            continue;
           }
           if (line[i+1] == 'C'){
             CC++;
             i++;
             C++;
             stringLength++;
+            continue;
           }
         }
-      }
+       }
+
       totalLength = totalLength + stringLength; // adds the length of the strings together, becomes the sum
       stringCounter = stringCounter + 1; // counts the number of strings
       mean = totalLength / stringCounter; // divides the sum by the amount of strings
@@ -197,7 +223,6 @@ int main()
       stringLength = 0; // resets the string length
     }
     deviation = sqrt(variance); // standard deviation, simply just the square root of the variance
-
     /// Finds the probabilities of the nucleotides by dividing the count of each one by the total amount
     A = A / totalLength;
     T = T / totalLength;
@@ -370,6 +395,13 @@ int main()
    } // second for loop
    cout << "Would you like to try with another file? 0 for no, 1 for yes" << endl; // asks if you would like to continue with another file
    cin >> cont;
+   if (cont == 1){
+     newFile = 1;
+   }
+   else{
+     newFile = 0;
+   }
+   myFile.close();
   }
   return 0;
 } // int main
