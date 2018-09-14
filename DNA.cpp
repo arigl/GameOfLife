@@ -8,7 +8,7 @@
 
 using namespace std;
 
-double gaussianLength (double mean, double deviation){
+double gaussianLength (double mean, double deviation){ // finds a length based on a gaussian distribution
     double aRand = ((double) rand() / (RAND_MAX));
     double bRand = ((double) rand() / (RAND_MAX));
     // Create two random values in a double type
@@ -24,12 +24,10 @@ double gaussianLength (double mean, double deviation){
 int main(int argc, char** argv)
 {
   int cont = 1;
-  int first = 0;
   while (cont == 1) // Loop for asking user if they want to continue
   {
     // VARIABLE DECLARATIONS
     ifstream inFile; // Taking in the File
-  //  ofstream myFile ("alexrigl.out"); // Outputting a file with strings
     ofstream myFile;
     // Relative distributions of nucleotides, and their bigrams
     double A = 0;
@@ -84,7 +82,7 @@ int main(int argc, char** argv)
     for( std::string line; getline( inFile, line ); ) // parse through each line in the text file
     {
       for (int i = 0; i < line.length(); i++){ // go through the length of the line
-        transform(line.begin(), line.end(), line.begin(), ::toupper);
+        transform(line.begin(), line.end(), line.begin(), ::toupper); // transforms the string/line into upper case
         if (line[i] == 'A'){ // checks the index of the string
           A++;
           stringLength++;
@@ -395,13 +393,13 @@ int main(int argc, char** argv)
    } // second for loop
    cout << "Would you like to try with another file? 0 for no, 1 for yes" << endl; // asks if you would like to continue with another file
    cin >> cont;
-   if (cont == 1){
+   if (cont == 1){ // decides whether or not we should append the file
      newFile = 1;
    }
    else{
      newFile = 0;
    }
-   myFile.close();
+   myFile.close(); // closes the file so no data is deleted
   }
-  return 0;
+  return 0; // end
 } // int main
