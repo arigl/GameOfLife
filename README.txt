@@ -29,5 +29,12 @@ Rounding
 Differentiation of Rand values
 - http://www.cplusplus.com/reference/cstdlib/srand/
 
+Closing a file
+- http://www.cplusplus.com/reference/fstream/ofstream/close/
+
+Appending to an already existing file
+- https://stackoverflow.com/questions/6932409/writting-a-string-to-the-end-of-a-file-c
+
 Classmate help:
 - Asked Matt on some different methods for handling probabilities
+- Asked Raha for command line input of file
